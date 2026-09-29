@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Heart Disease Prediction System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="shell">
+<header><div class="brand">♥ <span>Cardio<span>Predict</span></span></div><div class="online"><i></i> ML MODEL ONLINE</div></header>
+<section class="hero"><div><div class="eyebrow">MACHINE LEARNING • HEALTH ANALYTICS</div><h1>Heart Disease<br><em>Prediction System</em></h1><p>Enter patient health records and let the trained Random Forest model classify the record against the UCI Cleveland heart-disease dataset.</p></div><div class="pulse">♥<div class="line"></div></div></section>
+<section class="stats">
+<div><small>DATASET</small><b>{{ metrics.total_records }}</b><span>patient records</span></div>
+<div><small>FEATURES</small><b>{{ metrics.features }}</b><span>health parameters</span></div>
+<div><small>ACCURACY</small><b>{{ '%.2f'|format(metrics.accuracy*100) }}%</b><span>held-out test set</span></div>
+<div><small>ROC-AUC</small><b>{{ '%.3f'|format(metrics.roc_auc) }}</b><span>test set</span></div>
+</section>
+<main>
+<section class="card form-card"><div class="title"><div><small>01</small><h2>Patient Health Records</h2><p>Enter all 13 model features.</p></div></div>
+<form id="form"><div class="grid">
+<label>Age<input id="age" type="number" min="1" max="120" value="45" required></label>
+<label>Sex<select id="sex"><option value="0">Female</option><option value="1" selected>Male</option></select></label>
+<label class="wide">Chest Pain Type<select id="cp"><option value="1">Typical Angina</option><option value="2">Atypical Angina</option><option value="3">Non-anginal Pain</option><option value="4">Asymptomatic</option></select></label>
+<label>Resting BP (mm Hg)<input id="trestbps" type="number" value="120" min="50" max="250" required></label>
+<label>Cholesterol (mg/dl)<input id="chol" type="number" value="200" min="50" max="700" required></label>
+<label>Fasting Blood Sugar<select id="fbs"><option value="0">No — ≤120 mg/dl</option><option value="1">Yes — &gt;120 mg/dl</option></select></label>
+<label>Resting ECG<select id="restecg"><option value="0">Normal</option><option value="1">ST-T Wave Abnormality</option><option value="2">LV Hypertrophy</option></select></label>
+<label>Max Heart Rate<input id="thalach" type="number" value="150" min="50" max="250" required></label>
+<label>Exercise Angina<select id="exang"><option value="0">No</option><option value="1">Yes</option></select></label>
+<label>ST Depression / Oldpeak<input id="oldpeak" type="number" value="1" min="0" max="10" step="0.1" required></label>
+<label>ST Slope<select id="slope"><option value="1">Upsloping</option><option value="2" selected>Flat</option><option value="3">Downsloping</option></select></label>
+<label>Major Vessels (0–3)<select id="ca"><option>0</option><option>1</option><option>2</option><option>3</option></select></label>
+<label class="wide">Thalassemia<select id="thal"><option value="3">Normal</option><option value="6">Fixed Defect</option><option value="7">Reversible Defect</option></select></label>
+</div><button id="btn">Predict Heart Disease Risk <span>→</span></button></form></section>
+<section class="card result-card"><div class="title"><div><small>02</small><h2>Model Prediction</h2><p>Generated from the trained model.</p></div></div>
+<div id="empty" class="empty"><div class="heart">♥</div><h3>Ready for Analysis</h3><p>Enter the patient information and click the prediction button.</p></div>
+<div id="result" class="result hidden"><div id="icon" class="result-icon">✓</div><small>CLASSIFICATION</small><h3 id="status">Lower Likelihood</h3><p id="desc"></p><div class="prob"><div><span>Positive-class probability</span><b id="pct">0%</b></div><div class="bar"><i id="bar"></i></div></div><div class="note">ⓘ This is an academic ML prediction, not a medical diagnosis.</div></div>
+</section></main>
+<footer><span>CardioPredict • UCI Cleveland Heart Disease dataset</span><span>Random Forest Classifier</span></footer>
+</div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body></html>
